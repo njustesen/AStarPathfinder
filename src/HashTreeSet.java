@@ -30,7 +30,9 @@ public class HashTreeSet implements Set<Tile> {
 	}
 	
 	public Tile pollFirst(){
-		return treeSet.pollFirst();
+		Tile t = treeSet.pollFirst();
+		hashSet.remove(t);
+		return t;
 	}
 
 	@Override

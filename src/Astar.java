@@ -10,33 +10,18 @@ import java.util.TreeSet;
 public class Astar {
 	public static ArrayList<Tile> getShortestPath(GameMap map, Tile start, Tile goal) throws PathNotFoundException {
 		
-        TreeSet<Tile> openTreeSet = new TreeSet<Tile>(new Comparator<Tile>() {
-
-			@Override
-			public int compare(Tile o1, Tile o2) {
-				int score = o1.getFScore() - o2.getFScore();
-				if (score == 0){
-					return -1;
-				}
-				return score;
-			}
-			
-		});
-        
-        HashSet<Tile> openHashSet = new HashSet<Tile>();
+        HashTreeSet openSet = new HashTreeSet();
         
         HashSet<Tile> closedSet = new HashSet<Tile>();
         Map<Tile,Tile> cameFrom = new HashMap<Tile, Tile>();
 
         start.setGScore(0);
         start.setFScore(getHeuristic(start, goal));
-        openTreeSet.add(start);
-        openHashSet.add(start);
+        openSet.add(start);
         
-        while (openTreeSet.size()!= 0){
+        while (openSet.size()!= 0){
         
-            Tile current = openTreeSet.pollFirst();
-            openHashSet.remove(current);
+            Tile current = openSet.pollFirst();
             
             if (current.equals(goal)){
             	return createPath(current, start, cameFrom);
@@ -49,14 +34,13 @@ public class Astar {
             	if (!closedSet.contains(neighbor)){	// Check for values
             		int tentGScore = current.getGScore() + cost(map.getValue(neighbor));
             		
-            		if (!openHashSet.contains(neighbor) || neighbor.getGScore() <= tentGScore) {	// Check for values
+            		if (!openSet.contains(neighbor) || neighbor.getGScore() <= tentGScore) {	// Check for values
             			neighbor.setGScore(tentGScore);
                 		neighbor.setFScore(tentGScore + getHeuristic(neighbor, goal));
             			cameFrom.put(neighbor, current);
                         
-                        if (!openHashSet.contains(neighbor)){
-                        	openTreeSet.add(neighbor);
-                        	openHashSet.add(neighbor);
+                        if (!openSet.contains(neighbor)){
+                        	openSet.add(neighbor);
                         }
                         
                     }
