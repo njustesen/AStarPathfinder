@@ -24,6 +24,7 @@ public class Astar {
             Tile current = openSet.pollFirst();
             
             if (current.equals(goal)){
+            	//System.out.println(openSet.size());
             	return createPath(current, start, cameFrom);
             }
             

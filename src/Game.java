@@ -19,8 +19,7 @@ public class Game extends JPanel {
 	private GameMap gameMap;
 	private Hero hero;
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-	private int updates = 0;
-	private int tileSize = 8;
+	private int tileSize = 5;
 	
 	public Game(){
 		gameMap = new GameMap();

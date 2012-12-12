@@ -16,13 +16,13 @@ public class GameMap {
 	
 	private ArrayList<Integer> walkables = new ArrayList<Integer>(Arrays.asList(0,2));
 
-	private int wallPercentage = 75;
+	private int wallPercentage = 27;
 
-	private int swampPercentage = 75;
+	private int swampPercentage = 27;
 
-	private int height = 64;
+	private int height = 128;
 
-	private int width = 128;
+	private int width = 256;
 	
 	public GameMap(){
 		mapArr = generateMap(width, height);
@@ -43,10 +43,10 @@ public class GameMap {
 				} else {
 					Random random = new Random();
 					// Wall?
-					if(random.nextInt(100) > wallPercentage){
+					if(random.nextInt(100) < wallPercentage){
 						value = 1;
 					// Swamp?
-					} else if(random.nextInt(100) > swampPercentage){
+					} else if(random.nextInt(100) < swampPercentage){
 						value = 2;
 					}
 				}
